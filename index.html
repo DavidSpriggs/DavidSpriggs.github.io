@@ -1,74 +1,83 @@
-<!DOCTYPE html>
 <html>
-
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="David Spriggs : My github projects." />
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>David Spriggs</title>
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/DavidSpriggs">View on GitHub</a>
-
-          <h1 id="project_title">David Spriggs</h1>
-          <h2 id="project_tagline">My github projects.</h2>
-
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
+<head>
+<title>David Spriggs on GitHub</title>
+<link rel="stylesheet" href="./css/isotope.css" />
+<link rel="stylesheet" href="./css/style.css" />
+<link rel="stylesheet" href="http://download.dojotoolkit.org/release-1.8.0/dojo-release-1.8.0/dijit/themes/tundra/tundra.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js"data-dojo-config="async: true"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="./js/jquery.isotope.min.js"></script>
+<script type="text/javascript">
+require(["dojo/dom", "dojo/request/xhr", "dojo/_base/array", "dojo/dom-construct", "dojo/dom-class", "dojo/on", "dijit/Tooltip", "dojo/domReady!"], function(dom, xhr, array, constr, dClass, on, Tooltip){
     
+	on(dom.byId("profile-circle"), "click", function(){
+		window.location.href = "https://twitter.com/DavidSpriggs";
+	});
 
-  </body>
+	new Tooltip({
+	    connectId: dom.byId("profile-circle"),
+	    label: "Visit my Twitter",
+	    position: ["below", "after"]
+	});
+
+    xhr("https://api.github.com/users/davidspriggs/repos?sort=full_name?type=all", {
+		handleAs: "json"
+	}).then(function(data){
+		//-- Sort through all github repos --//
+		array.forEach(data, function(repo){
+			if (!repo.fork) {
+				//-- If repo is not a fork, add it to the list --//
+				repoBox = constr.create("div", { id: repo.name }, dom.byId("results"));
+				dClass.add(repoBox, "repo ");
+
+				repoHeader = constr.create("div", { }, repoBox);
+				dClass.add(repoHeader, "repo-header " + repo.language);
+
+				repoTitle = constr.create("h2", { }, repoHeader);
+				dClass.add(repoTitle, "repo-title");
+
+				repoLink = constr.create("a", { href: repo.html_url, innerHTML: repo.name }, repoTitle);
+				repoLanguage = constr.create("h3", { innerHTML: repo.language }, repoHeader);
+				dClass.add(repoLanguage, "repo-language " + repo.language);
+
+				constr.create("p", { innerHTML: repo.description }, repoBox);
+				
+				if (repo.homepage !== null && repo.homepage != "" && !repo.homepage.match(/davidspriggs.github.io\/$/)) {
+					projectPage = constr.create("a", { innerHTML: "visit project page", href: repo.homepage }, repoBox);
+					dClass.add(projectPage, "project-link");
+
+				}
+
+				statsBox = constr.create("p", {}, repoBox);
+				dClass.add(statsBox, "stats");
+
+				forkedBox = constr.create("span", { innerHTML: repo.forks_count }, statsBox);
+				dClass.add(forkedBox, "icon-fork");
+
+				starredBox = constr.create("span", { innerHTML: repo.watchers_count }, statsBox);
+				dClass.add(starredBox, "icon-star");
+				
+				console.debug(repo);
+			}
+		});
+		//-- Activate jQuery Isotope --//
+		$('#results').isotope({
+			itemSelector : '.repo',
+			layoutMode : 'masonry'
+		});
+	});
+
+});
+</script>
+</head>
+<body>
+<div class="header">
+<div id="profile-circle" class="profile-border"><img class="profile-photo" src="http://www.gravatar.com/avatar/4dffe6082afe1ee32cbdee9138f88290?s=200"></div>
+<h1>David Spriggs</h1>
+<h2>open source projects on github</h2>
+</div>
+<div id="results">
+
+</div>
+</body>
 </html>
