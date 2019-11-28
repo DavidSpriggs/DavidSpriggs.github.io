@@ -3,15 +3,15 @@
 <title>David Spriggs on GitHub</title>
 <link rel="stylesheet" href="./css/isotope.css" />
 <link rel="stylesheet" href="./css/style.css" />
-<link rel="stylesheet" href="http://download.dojotoolkit.org/release-1.8.0/dojo-release-1.8.0/dijit/themes/tundra/tundra.css" />
-<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js"data-dojo-config="async: true"></script>
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" href="//download.dojotoolkit.org/release-1.8.0/dojo-release-1.8.0/dijit/themes/tundra/tundra.css" />
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js"data-dojo-config="async: true"></script>
+<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="./js/jquery.isotope.min.js"></script>
 <script type="text/javascript">
 require(["dojo/dom", "dojo/request/xhr", "dojo/_base/array", "dojo/dom-construct", "dojo/dom-class", "dojo/on", "dijit/Tooltip", "dojo/domReady!"], function(dom, xhr, array, constr, dClass, on, Tooltip){
     
 	on(dom.byId("profile-circle"), "click", function(){
-		window.location.href = "https://twitter.com/DavidSpriggs";
+		window.location.href = "//twitter.com/DavidSpriggs";
 	});
 
 	new Tooltip({
@@ -20,7 +20,7 @@ require(["dojo/dom", "dojo/request/xhr", "dojo/_base/array", "dojo/dom-construct
 	    position: ["below", "after"]
 	});
 
-    xhr("https://api.github.com/users/davidspriggs/repos?sort=full_name?type=all", {
+    xhr("//api.github.com/users/DavidSpriggs/repos?sort=full_name?type=all", {
 		handleAs: "json"
 	}).then(function(data){
 		//-- Sort through all github repos --//
@@ -72,7 +72,7 @@ require(["dojo/dom", "dojo/request/xhr", "dojo/_base/array", "dojo/dom-construct
 </head>
 <body>
 <div class="header">
-<div id="profile-circle" class="profile-border"><img class="profile-photo" src="http://www.gravatar.com/avatar/4dffe6082afe1ee32cbdee9138f88290?s=200"></div>
+<div id="profile-circle" class="profile-border"><img class="profile-photo" src="//www.gravatar.com/avatar/4dffe6082afe1ee32cbdee9138f88290?s=200"></div>
 <h1>David Spriggs</h1>
 <h2>open source projects on github</h2>
 </div>

@@ -1,0 +1,8 @@
+{
+    "liveServer.settings.https": {
+        "enable": false,
+        "cert": "~/git/server.cert",
+        "key": "~/git/server.key",
+        "passphrase": "12345"
+    }
+}
